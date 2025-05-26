@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Glyph Ritual Card Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+        
+        :root {
+            --gold: #d4af37;
+            --deep-blue: #1a1a2e;
+            --burgundy: #722f37;
+            --cream: #f5f5dc;
+            --shadow: rgba(212, 175, 55, 0.3);
+            --midnight: #0f0f23;
+            --sage-green: #87a96b;
+            --mystic-purple: #6a4c93;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, var(--midnight) 0%, var(--deep-blue) 50%, var(--burgundy) 100%);
+            color: var(--cream);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--cream);
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .generator-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .generator-panel {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(114, 47, 55, 0.8));
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .panel-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            background: rgba(26, 26, 46, 0.8);
+            color: var(--cream);
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+        }
+        
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--shadow);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--deep-blue);
+            background: linear-gradient(135deg, var(--gold), #b8941f);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .glyph-canvas {
+            width: 100%;
+            height: 300px;
+            background: rgba(15, 15, 35, 0.8);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glyph-canvas::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--shadow) 0%, transparent 50%);
+            opacity: 0.1;
+            animation: slow-rotate 60s linear infinite;
+        }
+        
+        @keyframes slow-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .glyph-svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ritual-card {
+            background: linear-gradient(135deg, var(--midnight), var(--deep-blue));
+            border: 4px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ritual-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--shadow) 0%, transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(135, 169, 107, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 40% 70%, rgba(106, 76, 147, 0.2) 0%, transparent 30%);
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .ritual-card-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-glyph-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .card-glyph-container {
+            width: 200px;
+            height: 200px;
+            margin: 25px auto;
+            border: 3px solid var(--gold);
+            border-radius: 15px;
+            background: rgba(15, 15, 35, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-glyph-container::before {
+            content: '';
+            position: absolute;
+            top: -25%;
+            left: -25%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, var(--shadow) 0%, transparent 60%);
+            opacity: 0.2;
+            animation: gentle-pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+        }
+        
+        .card-glyph-svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(26, 26, 46, 0.6);
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .card-section h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-section p {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .intention-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--deep-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ritual-instructions {
+            background: linear-gradient(135deg, rgba(106, 76, 147, 0.3), rgba(135, 169, 107, 0.3));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+        
+        .ritual-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .ritual-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .ritual-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--gold);
+            color: var(--deep-blue);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            background: transparent;
+            color: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Pro', serif;
+            font-weight: 600;
+        }
+        
+        .action-btn:hover {
+            background: var(--gold);
+            color: var(--deep-blue);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.primary {
+            background: var(--gold);
+            color: var(--deep-blue);
+        }
+        
+        .action-btn.primary:hover {
+            background: #b8941f;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .generator-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .ritual-card {
+                margin: 20px 10px;
+                padding: 25px;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .generator-section,
+            .card-actions {
+                display: none;
+            }
+            
+            .ritual-card {
+                margin: 0;
+                box-shadow: none;
+                border: 2px solid #000;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Sacred Glyph Ritual Cards</h1>
+            <p class="subtitle">Transform Generated Glyphs into Personal Practice Tools</p>
+        </header>
+        
+        <div class="generator-section">
+            <div class="generator-panel">
+                <h2 class="panel-title">🔮 Glyph Configuration</h2>
+                
+                <div class="form-group">
+                    <label for="glyphName">Glyph Name</label>
+                    <input type="text" id="glyphName" placeholder="Enter a mystical name..." value="Luxarcana">
+                </div>
+                
+                <div class="form-group">
+                    <label for="intention">Sacred Intention</label>
+                    <select id="intention">
+                        <option value="wisdom">Wisdom & Understanding</option>
+                        <option value="protection">Protection & Shielding</option>
+                        <option value="healing">Healing & Restoration</option>
+                        <option value="manifestation">Manifestation & Creation</option>
+                        <option value="transformation">Transformation & Change</option>
+                        <option value="divination">Divination & Insight</option>
+                        <option value="balance">Balance & Harmony</option>
+                        <option value="transcendence">Transcendence & Liberation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="complexity">Complexity Level</label>
+                    <select id="complexity">
+                        <option value="1">Simple (3-4 symbols)</option>
+                        <option value="2">Moderate (5-6 symbols)</option>
+                        <option value="3" selected>Balanced (7-8 symbols)</option>
+                        <option value="4">Complex (9-10 symbols)</option>
+                        <option value="5">Intricate (11+ symbols)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalMeaning">Personal Meaning (Optional)</label>
+                    <textarea id="personalMeaning" placeholder="Describe what this glyph means to you...">A convergence of archetypal energies designed to facilitate deep contemplation and spiritual focus.</textarea>
+                </div>
+                
+                <button class="generate-btn" onclick="generateGlyph()">
+                    ⚡ Generate Sacred Glyph
+                </button>
+            </div>
+            
+            <div class="generator-panel">
+                <h2 class="panel-title">✨ Glyph Preview</h2>
+                
+                <div class="glyph-canvas">
+                    <svg id="previewSvg" class="glyph-svg" viewBox="0 0 300 300">
+                        <text x="150" y="150" text-anchor="middle" alignment-baseline="middle" 
+                              font-size="24" fill="#d4af37" opacity="0.5">
+                            Click Generate to Create Your Glyph
+                        </text>
+                    </svg>
+                </div>
+                
+                <button class="generate-btn" onclick="createRitualCard()" id="createCardBtn" disabled>
+                    📜 Create Ritual Card
+                </button>
+            </div>
+        </div>
+        
+        <div class="ritual-card hidden" id="ritualCard">
+            <div class="ritual-card-content">
+                <h2 class="card-glyph-name" id="cardGlyphName">Luxarcana</h2>
+                
+                <div class="card-glyph-container">
+                    <svg id="cardGlyphSvg" class="card-glyph-svg" viewBox="0 0 300 300">
+                        <!-- Glyph will be inserted here -->
+                    </svg>
+                </div>
+                
+                <div class="card-section">
+                    <h3>🎯 Sacred Intention</h3>
+                    <p><span class="intention-badge" id="cardIntention">Wisdom</span></p>
+                </div>
+                
+                <div class="card-section">
+                    <h3>🌟 Mystical Significance</h3>
+                    <p id="cardMeaning">A convergence of archetypal energies designed to facilitate deep contemplation and spiritual focus.</p>
+                </div>
+                
+                <div class="ritual-instructions">
+                    <h3 style="color: var(--gold); margin-bottom: 20px; font-family: 'Cinzel', serif;">
+                        🕯️ Ritual Practice Instructions
+                    </h3>
+                    <ol class="ritual-steps" id="ritualSteps">
+                        <!-- Steps will be inserted here -->
+                    </ol>
+                </div>
+                
+                <div class="card-actions">
+                    <button class="action-btn" onclick="downloadCard()">📥 Download PDF</button>
+                    <button class="action-btn" onclick="printCard()">🖨️ Print Card</button>
+                    <button class="action-btn" onclick="shareCard()">🔗 Share Glyph</button>
+                    <button class="action-btn primary" onclick="saveToJournal()">📔 Save to Journal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Symbol pools for glyph generation
+        const symbolPools = {
+            alchemical: ["☿", "🜃", "🜁", "🜂", "🜄", "🜇", "🜈", "🜉", "🜊", "🜋"],
+            astrological: ["☉", "☾", "☿", "♀", "♂", "♃", "♄", "♅", "♆", "♇"],
+            geometric: ["△", "▽", "◇", "○", "□", "⬟", "⬢", "⬣", "⌬", "⟐"],
+            hermetic: ["⚭", "✡", "🔯", "⚖", "⚕", "🕎", "⚛", "☪", "☮", "⚪"],
+            mystical: ["🌹", "✠", "⚔", "🗝", "👁", "🔮", "⚡", "🌙", "⭐", "💫"]
+        };
+        
+        const intentionConfigs = {
+            wisdom: {
+                pools: ['hermetic', 'mystical'],
+                colors: ['#6a4c93', '#d4af37', '#0066cc'],
+                ritualSteps: [
+                    "Find a quiet space and light a white or blue candle",
+                    "Hold the glyph card at eye level, gazing softly at the center",
+                    "Take seven deep breaths, feeling wisdom energy flowing into your mind",
+                    "Silently ask: 'What knowledge do I need to receive today?'",
+                    "Meditate on the glyph for 5-15 minutes, noting any insights",
+                    "Journal any thoughts or visions that arise during contemplation"
+                ]
+            },
+            protection: {
+                pools: ['geometric', 'alchemical'],
+                colors: ['#87a96b', '#0066cc', '#d4af37'],
+                ritualSteps: [
+                    "Create a sacred circle using salt or white light visualization",
+                    "Place the glyph card in the center of your space",
+                    "Visualize a golden shield emanating from the glyph symbols",
+                    "Recite: 'I am protected by the ancient wisdom of the sacred'",
+                    "Carry the card with you or place it in your living space",
+                    "Recharge monthly under the full moon"
+                ]
+            },
+            healing: {
+                pools: ['alchemical', 'mystical'],
+                colors: ['#87a96b', '#d4af37', '#722f37'],
+                ritualSteps: [
+                    "Begin during the waxing moon for maximum healing energy",
+                    "Place hands on heart while viewing the glyph",
+                    "Breathe healing green light into any areas needing restoration",
+                    "Affirm: 'Divine healing flows through me with perfect timing'",
+                    "Send healing energy to others by focusing on their image",
+                    "Practice daily until healing is complete"
+                ]
+            },
+            manifestation: {
+                pools: ['geometric', 'astrological'],
+                colors: ['#d4af37', '#6a4c93', '#722f37'],
+                ritualSteps: [
+                    "Work during the new moon to plant seeds of intention",
+                    "Write your specific desire on paper beneath the glyph",
+                    "Visualize your goal as already achieved while gazing at symbols",
+                    "Feel deep gratitude for the manifestation coming to pass",
+                    "Place the card and paper under your pillow for one week",
+                    "Take inspired action toward your goal daily"
+                ]
+            },
+            transformation: {
+                pools: ['alchemical', 'hermetic'],
+                colors: ['#d4af37', '#722f37', '#6a4c93'],
+                ritualSteps: [
+                    "Begin at sunset to honor the transformative power of endings",
+                    "Identify what aspect of yourself you wish to transform",
+                    "Gaze at the glyph while releasing the old pattern with each exhale",
+                    "Inhale the new quality you wish to embody",
+                    "Burn a piece of paper representing the old self",
+                    "Keep the glyph visible during your transformation period"
+                ]
+            },
+            divination: {
+                pools: ['mystical', 'astrological'],
+                colors: ['#6a4c93', '#0066cc', '#d4af37'],
+                ritualSteps: [
+                    "Create sacred space with incense and soft lighting",
+                    "Formulate a clear question before approaching the glyph",
+                    "Enter a meditative state while gazing at the symbols",
+                    "Allow images, words, or feelings to arise without judgment",
+                    "Draw or write any impressions received during the session",
+                    "Reflect on the guidance over the following three days"
+                ]
+            },
+            balance: {
+                pools: ['hermetic', 'geometric'],
+                colors: ['#87a96b', '#d4af37', '#0066cc'],
+                ritualSteps: [
+                    "Practice during the equinox for maximum balancing energy",
+                    "Identify areas of life that feel out of harmony",
+                    "Hold the glyph while standing in a balanced pose",
+                    "Visualize golden energy flowing between all life areas",
+                    "Affirm: 'Perfect balance flows through all aspects of my life'",
+                    "Display the glyph in your main living space"
+                ]
+            },
+            transcendence: {
+                pools: ['astrological', 'mystical'],
+                colors: ['#d4af37', '#6a4c93', '#87a96b'],
+                ritualSteps: [
+                    "Begin before dawn to connect with transcendent energies",
+                    "Sit facing east while holding the glyph card",
+                    "Release all mental chatter and enter pure awareness",
+                    "Allow consciousness to expand beyond physical boundaries",
+                    "Rest in the space of infinite possibility and peace",
+                    "Return slowly, carrying the transcendent state into daily life"
+                ]
+            }
+        };
+        
+        let currentGlyph = null;
+        
+        function generateGlyph() {
+            const intention = document.getElementById('intention').value;
+            const complexity = parseInt(document.getElementById('complexity').value);
+            const config = intentionConfigs[intention];
+            
+            const svg = document.getElementById('previewSvg');
+            svg.innerHTML = '';
+            
+            const centerX = 150;
+            const centerY = 150;
+            
+            // Create background circles
+            for (let i = 1; i <= 3; i++) {
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", centerX);
+                circle.setAttribute("cy", centerY);
+                circle.setAttribute("r", 40 * i);
+                circle.setAttribute("fill", "none");
+                circle.setAttribute("stroke", config.colors[i % config.colors.length]);
+                circle.setAttribute("stroke-width", "1");
+                circle.setAttribute("opacity", "0.3");
+                svg.appendChild(circle);
+            }
+            
+            // Generate symbols
+            const symbolCount = Math.min(complexity * 2 + 2, 12);
+            const symbols = generateSymbolSet(config.pools, symbolCount);
+            
+            // Arrange symbols in circle
+            symbols.forEach((symbol, i) => {
+                const angle = (i * 360) / symbols.length;
+                const rad = (angle * Math.PI) / 180;
+                const radius = 80;
+                const x = centerX + radius * Math.cos(rad);
+                const y = centerY + radius * Math.sin(rad);
+                
+                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                text.setAttribute("x", x);
+                text.setAttribute("y", y);
+                text.setAttribute("fill", config.colors[i % config.colors.length]);
+                text.setAttribute("font-size", "20");
+                text.setAttribute("text-anchor", "middle");
+                text.setAttribute("alignment-baseline", "middle");
+                text.setAttribute("filter", "drop-shadow(0 0 3px " + config.colors[i % config.colors.length] + ")");
+                text.textContent = symbol;
+                svg.appendChild(text);
+            });
+            
+            // Add center symbol
+            if (symbols.length > 0) {
+                const centerText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                centerText.setAttribute("x", centerX);
+                centerText.setAttribute("y", centerY);
+                centerText.setAttribute("fill", config.colors[0]);
+                centerText.setAttribute("font-size", "28");
+                centerText.setAttribute("text-anchor", "middle");
+                centerText.setAttribute("alignment-baseline", "middle");
+                centerText.setAttribute("filter", "drop-shadow(0 0 5px " + config.colors[0] + ")");
+                centerText.textContent = symbols[0];
+                svg.appendChild(centerText);
+            }
+            
+            currentGlyph = {
+                svg: svg.innerHTML,
+                intention: intention,
+                symbols: symbols,
+                config: config
+            };
+            
+            document.getElementById('createCardBtn').disabled = false;
+        }
+        
+        function generateSymbolSet(pools, count) {
+            const symbols = [];
+            const availableSymbols = [];
+            
+            pools.forEach(pool => {
+                availableSymbols.push(...symbolPools[pool]);
+            });
+            
+            for (let i = 0; i < count; i++) {
+                const randomSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+                symbols.push(randomSymbol);
+            }
+            
+            return symbols;
+        }
+        
+        function createRitualCard() {
+            if (!currentGlyph) return;
+            
+            const card = document.getElementById('ritualCard');
+            const cardSvg = document.getElementById('cardGlyphSvg');
+            const cardName = document.getElementById('cardGlyphName');
+            const cardIntention = document.getElementById('cardIntention');
+            const cardMeaning = document.getElementById('cardMeaning');
+            const ritualSteps = document.getElementById('ritualSteps');
+            
+            // Set card content
+            cardName.textContent = document.getElementById('glyphName').value;
+            cardSvg.innerHTML = currentGlyph.svg;
+            cardIntention.textContent = document.getElementById('intention').options[document.getElementById('intention').selectedIndex].text;
+            cardMeaning.textContent = document.getElementById('personalMeaning').value;
+            
+            // Set ritual steps
+            ritualSteps.innerHTML = '';
+            currentGlyph.config.ritualSteps.forEach(step => {
+                const li = document.createElement('li');
+                li.textContent = step;
+                ritualSteps.appendChild(li);
+            });
+            
+            // Show card
+            card.classList.remove('hidden');
+            card.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function downloadCard() {
+            // In a real implementation, this would generate a PDF
+            alert('PDF download feature would be implemented here using libraries like jsPDF or Puppeteer');
+        }
+        
+        function printCard() {
+            window.print();
+        }
+        
+        function shareCard() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Sacred Glyph: ' + document.getElementById('glyphName').value,
+                    text: 'I created a sacred glyph for ' + document.getElementById('intention').options[document.getElementById('intention').selectedIndex].text,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers without Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Glyph URL copied to clipboard!');
+                });
+            }
+        }
+        
+        function saveToJournal() {
+            const glyphData = {
+                name: document.getElementById('glyphName').value,
+                intention: document.getElementById('intention').value,
+                meaning: document.getElementById('personalMeaning').value,
+                svg: currentGlyph.svg,
+                created: new Date().toISOString()
+            };
+            
+            let journal = JSON.parse(localStorage.getItem('glyphJournal') || '[]');
+            journal.push(glyphData);
+            localStorage.setItem('glyphJournal', JSON.stringify(journal));
+            
+            alert('Glyph saved to your personal journal!');
+        }
+        
+        // Initialize with a default glyph
+        document.addEventListener('DOMContentLoaded', () => {
+            generateGlyph();
+        });
+    </script>
+</body>
+</html>

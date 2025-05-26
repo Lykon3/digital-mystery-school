@@ -129,6 +129,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 *Built with ⚡ and 🔮 for seekers everywhere*
 
 **⭐ If this project helps you on your journey, please consider giving it a star!**
-
-# digital-mystery-school
-An open-source collection of interactive tools for exploring esoteric philosophy and ancient wisdom
