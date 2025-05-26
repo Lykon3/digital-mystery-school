@@ -1,0 +1,78 @@
+name: ✨ Feature Request
+description: Suggest an idea for the Digital Mystery School
+title: "[FEATURE] "
+labels: ["enhancement", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Your ideas help make this project better. 🌟
+        
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: What would you like to see added?
+      placeholder: Describe your idea in detail
+    validations:
+      required: true
+      
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem/Need
+      description: What problem does this solve?
+      placeholder: I'm frustrated when... or It would be helpful if...
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: category
+    attributes:
+      label: What type of feature is this?
+      options:
+        - New mystical tradition/symbols
+        - UI/UX improvement
+        - New tool/functionality
+        - Educational content
+        - Performance enhancement
+        - Accessibility improvement
+        - Mobile optimization
+        - Other
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: traditions
+    attributes:
+      label: Which mystical traditions would this involve?
+      options:
+        - label: Hermetic/Alchemical
+        - label: Kabbalistic
+        - label: Eastern (Hindu/Buddhist/Taoist)
+        - label: Celtic/Norse
+        - label: Egyptian
+        - label: Comparative/Cross-tradition
+        - label: Modern/Contemporary
+        - label: Other/General
+        
+  - type: dropdown
+    id: users
+    attributes:
+      label: Who would benefit from this feature?
+      multiple: true
+      options:
+        - Students/Researchers
+        - Spiritual Practitioners
+        - General Public
+        - Developers/Contributors
+        - Educators
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Mockups, examples, or other relevant information
+      placeholder: Links, images, or other details that might help

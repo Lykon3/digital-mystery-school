@@ -1,0 +1,77 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve the Digital Mystery School
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 🔮
+        
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug you encountered
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool is affected?
+      multiple: true
+      options:
+        - Digital Hermetica
+        - Hermetic Lexicon
+        - Comparative Analysis Engine
+        - Living Glyph Generator
+        - Main Navigation
+        - Other
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browser are you using?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: device
+    attributes:
+      label: What device are you using?
+      options:
+        - Desktop
+        - Mobile
+        - Tablet
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here
+      placeholder: Screenshots, error messages, etc.
