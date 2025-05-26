@@ -1,0 +1,123 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve the Digital Mystery School
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report! Your feedback helps us improve the Digital Mystery School for all seekers. 🔮
+        
+        Please provide as much detail as possible to help us understand and reproduce the issue.
+        
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐛 Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Describe what went wrong...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Describe what should have happened...
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: affected-tool
+    attributes:
+      label: 🛠️ Which tool is affected?
+      multiple: true
+      options:
+        - "📜 Digital Hermetica"
+        - "🔤 Hermetic Lexicon"
+        - "⚖️ Comparative Analysis Engine"
+        - "🎨 Living Glyph Generator"
+        - "🏠 Main Navigation"
+        - "📱 Mobile Interface"
+        - "💾 Local Storage"
+        - "Other"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: browser
+    attributes:
+      label: 🌐 Browser
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Opera
+        - Other
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: device-type
+    attributes:
+      label: 📱 Device Type
+      options:
+        - Desktop
+        - Mobile Phone
+        - Tablet
+        - Other
+    validations:
+      required: true
+      
+  - type: input
+    id: screen-size
+    attributes:
+      label: 🖥️ Screen Size/Resolution
+      description: Your screen resolution (e.g., 1920x1080, iPhone 12, etc.)
+      placeholder: e.g., 1920x1080 or iPhone 14
+      
+  - type: textarea
+    id: console-errors
+    attributes:
+      label: ⚠️ Console Errors
+      description: Any error messages in the browser console (F12 -> Console tab)
+      placeholder: Paste any error messages here...
+      render: shell
+      
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 Additional Context
+      description: Add any other context about the problem here
+      placeholder: Screenshots, recordings, or other relevant information...
+      
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 📋 Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to make sure this isn't a duplicate
+          required: true
+        - label: I have tested this on the latest version
+          required: true
+        - label: I have provided all the requested information
+          required: true

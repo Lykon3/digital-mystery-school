@@ -1,0 +1,130 @@
+name: ✨ Feature Request
+description: Suggest an idea to enhance the Digital Mystery School
+title: "[FEATURE] "
+labels: ["enhancement", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a new feature! Your ideas help make the Digital Mystery School a more comprehensive tool for exploring ancient wisdom. 🌟
+        
+        Please describe your idea in detail to help us understand your vision.
+        
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: ✨ Feature Description
+      description: What would you like to see added or improved?
+      placeholder: Describe your idea in detail...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: problem-solution
+    attributes:
+      label: 🎯 Problem/Need
+      description: What problem does this solve or what need does it address?
+      placeholder: "I'm frustrated when..." or "It would be helpful if..." or "Students would benefit from..."
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: 📂 Feature Category
+      options:
+        - "🔤 New symbols/mystical content"
+        - "🛠️ New tool/functionality"
+        - "🎨 UI/UX improvement"
+        - "📚 Educational content"
+        - "⚡ Performance enhancement"
+        - "♿ Accessibility improvement"
+        - "📱 Mobile optimization"
+        - "🔧 Developer tools"
+        - "📖 Documentation"
+        - "🌐 Internationalization"
+        - "Other"
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: mystical-traditions
+    attributes:
+      label: 🔮 Which mystical traditions would this involve?
+      description: Select all that apply
+      options:
+        - label: "🧙‍♂️ Hermetic/Alchemical"
+        - label: "🌳 Kabbalistic/Tree of Life"
+        - label: "🕉️ Eastern (Hindu/Buddhist/Taoist)"
+        - label: "🍃 Celtic/Norse/Germanic"
+        - label: "🏺 Egyptian/Ancient Mystery Schools"
+        - label: "⚖️ Comparative/Cross-tradition analysis"
+        - label: "🆕 Modern/Contemporary mysticism"
+        - label: "🔬 Esoteric science/Sacred geometry"
+        - label: "📜 Historical manuscripts/texts"
+        - label: "🎭 Symbolism/Archetypal psychology"
+        - label: "🌟 Other/General"
+        
+  - type: dropdown
+    id: target-users
+    attributes:
+      label: 👥 Who would benefit from this feature?
+      multiple: true
+      options:
+        - "🎓 Students/Researchers"
+        - "🧘 Spiritual Practitioners"
+        - "👨‍🏫 Educators/Teachers"
+        - "👥 General Public"
+        - "💻 Developers/Contributors"
+        - "🏛️ Academic Institutions"
+        - "📚 Content Creators"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: priority-level
+    attributes:
+      label: ⭐ Priority Level
+      description: How important is this feature to you?
+      options:
+        - "🔥 High - This would significantly improve my experience"
+        - "📈 Medium - This would be a nice enhancement"
+        - "💡 Low - This is just an idea for the future"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: proposed-implementation
+    attributes:
+      label: 🔧 Proposed Implementation
+      description: If you have ideas about how this could be implemented, share them here
+      placeholder: "This could work by..." or "Similar to..." or "Maybe using..."
+      
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔀 Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: Describe any alternative solutions you've thought about...
+      
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 Additional Context
+      description: Add any other context, mockups, links, or screenshots about the feature request
+      placeholder: Links to similar implementations, mockups, academic sources, etc...
+      
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 🤝 Contribution
+      description: Are you interested in helping implement this feature?
+      options:
+        - label: "💻 I could help with coding/development"
+        - label: "📚 I could help with research/content"
+        - label: "🎨 I could help with design/mockups"
+        - label: "🧪 I could help with testing"
+        - label: "📖 I could help with documentation"
+        - label: "💡 I'm just providing the idea"
