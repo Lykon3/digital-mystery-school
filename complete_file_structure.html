@@ -1,0 +1,229 @@
+<!-- index.html - Main Navigation Hub -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Mystery School</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+        
+        :root {
+            --gold: #d4af37;
+            --deep-blue: #1a1a2e;
+            --burgundy: #722f37;
+            --cream: #f5f5dc;
+            --shadow: rgba(212, 175, 55, 0.3);
+            --midnight: #0f0f23;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, var(--midnight) 0%, var(--deep-blue) 30%, var(--burgundy) 70%, #2a1810 100%);
+            color: var(--cream);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 40px 20px;
+        }
+        
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+        
+        .main-subtitle {
+            font-size: 1.6rem;
+            color: var(--cream);
+            font-style: italic;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 50px;
+            max-width: 600px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 40px;
+        }
+        
+        .tool-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(114, 47, 55, 0.8));
+            border: 3px solid transparent;
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .tool-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--shadow);
+        }
+        
+        .tool-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .tool-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .tool-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--cream);
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        .github-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            background: var(--gold);
+            color: var(--deep-blue);
+        }
+        
+        @media (max-width: 768px) {
+            .main-title { font-size: 3rem; }
+            .tools-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="https://github.com/Lykon3/digital-mystery-school" class="github-link" target="_blank">
+        ⭐ GitHub
+    </a>
+    
+    <section class="hero-section">
+        <h1 class="main-title">The Digital Mystery School</h1>
+        <p class="main-subtitle">Ancient Wisdom for the Digital Age</p>
+        <p class="tagline">
+            An open-source collection of interactive tools for exploring esoteric philosophy, 
+            comparative mysticism, and the symbolic languages of consciousness.
+        </p>
+        
+        <div class="tools-grid">
+            <a href="tools/hermetica.html" class="tool-card">
+                <div class="tool-icon">📜</div>
+                <h3 class="tool-name">Digital Hermetica</h3>
+                <p class="tool-description">
+                    Comprehensive examination of Manly P. Hall's life, philosophy, and enduring influence on esoteric thought.
+                </p>
+            </a>
+            
+            <a href="tools/symbols.html" class="tool-card">
+                <div class="tool-icon">🔮</div>
+                <h3 class="tool-name">Hermetic Lexicon</h3>
+                <p class="tool-description">
+                    Interactive dictionary of sacred symbols with multi-layered interpretations from different perspectives.
+                </p>
+            </a>
+            
+            <a href="tools/analysis.html" class="tool-card">
+                <div class="tool-icon">⚖️</div>
+                <h3 class="tool-name">Analysis Engine</h3>
+                <p class="tool-description">
+                    Compare how different mystics and philosophers interpreted universal concepts across traditions.
+                </p>
+            </a>
+            
+            <a href="tools/glyph-generator.html" class="tool-card">
+                <div class="tool-icon">⚡</div>
+                <h3 class="tool-name">Glyph Generator</h3>
+                <p class="tool-description">
+                    Generate personalized sacred symbols based on intention and archetypal energies with Hall's interpretations.
+                </p>
+            </a>
+        </div>
+    </section>
+    
+    <script>
+        // Add some cosmic particle effects
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'fixed';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = '2px';
+                star.style.height = '2px';
+                star.style.background = '#d4af37';
+                star.style.borderRadius = '50%';
+                star.style.opacity = Math.random() * 0.5 + 0.2;
+                star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite`;
+                star.style.zIndex = '-1';
+                document.body.appendChild(star);
+            }
+        }
+        
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.2; }
+                50% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        createStars();
+    </script>
+</body>
+</html>
