@@ -243,3 +243,5 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 ---
 
 *"Bridging the gap between theoretical understanding and practical implementation in fusion energy development."*
+
+file_000000006e18622fbeb4fc6baa514f57.png
