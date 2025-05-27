@@ -235,6 +235,11 @@ For research collaboration, experimental validation opportunities, or technical 
 
 This work builds upon decades of fusion physics research and the open collaboration of the international fusion community. Special thanks to researchers who have made experimental data and theoretical frameworks openly accessible.
 
+
+npm i @vercel/speed-insights
+
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 ---
 
 *"Bridging the gap between theoretical understanding and practical implementation in fusion energy development."*
